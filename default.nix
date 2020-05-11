@@ -7,5 +7,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   # packages
+  butler = pkgs.callPackage ./pkgs/butler {};
 }
 
