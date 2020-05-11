@@ -8,5 +8,6 @@
 
   # packages
   butler = pkgs.callPackage ./pkgs/butler {};
+  riscv-gnu-toolchain = pkgs.callPackage ./pkgs/riscv-gnu-toolchain {};
 }
 
