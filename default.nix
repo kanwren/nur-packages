@@ -17,5 +17,6 @@
 
   githug = pkgs.callPackage ./pkgs/githug {};
 
+  pandocWithFilters = pkgs.callPackage ./pkgs/pandoc-with-filters {};
 }
 
