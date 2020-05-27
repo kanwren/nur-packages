@@ -1,5 +1,5 @@
 # To generate:
-# nix run nixpkgs.nodePackages_13_x.node2nix -c node2nix -c package.nix --strip-optional-dependencies -13 -d -l
+# > nix run nixpkgs.nodePackages.node2nix -c node2nix -c package.nix -13 -d -l
 
 { pkgs
 , nodejs
@@ -12,22 +12,35 @@ in aurora.override (old: {
   src = pkgs.fetchFromGitHub {
     owner = "GRarer";
     repo = "Aurora";
-    rev = "5156458df38b2c5620f18074dc145f03e51388b7";
-    sha256 = "0fg0w5q9sl6li6d7avir0yky8jaqhq9nx27z2lbn7yi9ir1988jq";
+    rev = "7d15feb03cbc5261ade4d66eb9bf2ebfb8408d1a";
+    sha256 = "1zf7ygb7gic50lwxshgdpcq3b2px1mwlhjz61yga43d411vcm9wg";
   };
 
   nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ pkgs.makeWrapper ];
-  # Run the build and make a live-server wrapper
   postInstall = (old.postInstall or "") + ''
+    # The directory for the final output
+    mkdir -p "$out/lib/aurora"
+
     cd "$out/lib/node_modules/aurora"
+
+    # Build and minify to a single dist/index.html
     ${pkgs.nodejs-13_x}/bin/npm run build
+    ${pkgs.nodejs-13_x}/bin/npm run minify
+    cp dist/index.html "$out/lib/aurora"
+    cp -r assets "$out/lib/aurora"
+    cp favicon.ico "$out/lib/aurora"
+
     cd -
 
+    # Remove old source
+    rm -rf "$out/lib/node_modules"
+
+    # Make a wrapper to serve the page
     mkdir -p "$out/bin"
     makeWrapper \
       ${pkgs.nodePackages.live-server}/bin/live-server \
       "$out/bin/aurora" \
-      --add-flags "$out/lib/node_modules/aurora"
+      --add-flags "$out/lib/aurora"
   '';
 
   meta = with pkgs.stdenv.lib; {
