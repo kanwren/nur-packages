@@ -22,6 +22,9 @@
     nodejs = pkgs.nodejs-13_x;
   };
 
+  # applications
+  rover = pkgs.callPackage ./pkgs/applications/rover {};
+
   # build-support
   pandocWithFilters = pkgs.callPackage ./pkgs/build-support/pandoc-with-filters {};
 
