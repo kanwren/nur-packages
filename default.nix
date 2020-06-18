@@ -22,6 +22,8 @@
     nodejs = pkgs.nodejs-13_x;
   };
 
+  pridecat = pkgs.callPackage ./pkgs/tools/pridecat {};
+
   # applications
   rover = pkgs.callPackage ./pkgs/applications/rover {};
 
