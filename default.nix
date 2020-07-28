@@ -14,6 +14,8 @@
     ocamlPackages = pkgs.ocamlPackages_latest;
   };
 
+  spack = pkgs.callPackage ./pkgs/development/spack {};
+
   nord-css = pkgs.callPackage ./pkgs/development/nord-css {};
 
   # tools
