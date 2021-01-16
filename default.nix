@@ -2,7 +2,7 @@
 }:
 
 {
-  lib = import ./lib {};
+  lib = import ./lib { inherit pkgs; };
   modules = import ./modules;
   hm-modules = import ./hm-modules;
   overlays = import ./overlays;
@@ -22,4 +22,3 @@
   # games
   githug = pkgs.callPackage ./pkgs/games/githug {};
 }
-
