@@ -2,10 +2,10 @@
 }:
 
 {
-  # lib = import ./lib { inherit pkgs; };
-  # modules = import ./modules;
-  # hm-modules = import ./hm-modules;
-  # overlays = import ./overlays;
+  lib = import ./lib {};
+  modules = import ./modules;
+  hm-modules = import ./hm-modules;
+  overlays = import ./overlays;
 
   # tools
   butler = pkgs.callPackage ./pkgs/tools/butler {};
